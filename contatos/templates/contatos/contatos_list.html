@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8">
+    <title>Contatos</title>
+
+    <style>
+
+        h1 {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .contatos {
+            border: 1px solid black;
+            margin: 5px 0;
+            padding: 5px 0;
+        }
+
+        .sem-contatos {
+            text-align: center;
+            font-size: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Contatos</h1>
+    <a href="{% url 'contatos:redirect' 0 %}">Criar contato</a>
+    {% for contato in contatos %}
+        <div class='contatos'>
+            <p>{{ contato.nome }}</p>
+            <p>{{ contato.telefone }}</p>
+            <p>{{ contato.email }}</p>
+            <p>{{ contato.data_nascimento|date:'d/m/Y' }}</p>
+            <a href="{% url 'contatos:redirect' contato.id %}">Editar</a>
+            <a href="{% url 'contatos:delete' contato.id %}">Deletar</a>
+        </div>
+        {% empty %}
+            <div class="sem-contatos">
+                Sem contatos
+            </div>
+    {% endfor %}
+</body>
+</html>
